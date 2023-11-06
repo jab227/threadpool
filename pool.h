@@ -7,7 +7,6 @@
 
 struct context {
   work_queue wq;
-  _Atomic int done;
 };
 
 typedef pthread_t worker;

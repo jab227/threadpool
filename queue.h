@@ -12,20 +12,27 @@
 static_assert(((QUEUE_SIZE & (QUEUE_SIZE - 1)) == 0), "should be power of 2");
 
 typedef void (*work_cb)(void *data);
-typedef struct {
-  work_cb cb;
-  void *data;
+typedef struct
+{
+    void *data;
+    work_cb cb;
+    enum
+    {
+        TYPE_STOP = 0,
+        TYPE_WORK
+    } type;
 } work;
 
 // Size defined at compile time, see QUEUE_SIZE. Must be power of
 // two. The capacity of the queue es QUEUE_SIZE - 1
-typedef struct {
-  ssize_t head;
-  ssize_t tail;
-  pthread_mutex_t buf_lock;
-  pthread_cond_t not_empty;
-  pthread_cond_t not_full;
-  work buf[QUEUE_SIZE];
+typedef struct
+{
+    ssize_t head;
+    ssize_t tail;
+    pthread_mutex_t buf_lock;
+    pthread_cond_t not_empty;
+    pthread_cond_t not_full;
+    work buf[QUEUE_SIZE];
 } work_queue;
 
 

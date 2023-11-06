@@ -1,4 +1,5 @@
-CFLAGS=-Wall -Werror -Wconversion -Wpedantic -Wextra -O2 -std=c11
+CFLAGS=-Wall -Werror -Wconversion -Wpedantic -Wextra -O1 -g -std=c11 -fsanitize=thread
+LDFLAGS=-fsanitize=thread
 LDLIBS=-lpthread
 
 objects=main.o pool.o queue.o
